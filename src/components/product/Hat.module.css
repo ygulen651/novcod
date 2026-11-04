@@ -1,0 +1,52 @@
+.hat, .flow { position: relative; --draw-axis: y; }
+
+.line {
+  position: absolute;
+  top: 8px;
+  bottom: 22px;
+  left: 6px;
+  width: 1px;
+  background: var(--rule);
+  transform-origin: 50% 0;
+}
+
+.stop {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 44px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-decoration: none;
+}
+.stop:hover { color: var(--link); text-decoration: underline; }
+
+.dot {
+  position: relative;
+  flex: none;
+  width: 13px;
+  height: 13px;
+  border: 1.5px solid var(--hat);
+  border-radius: 50%;
+  background: var(--bg);
+  transition: background-color 0.16s ease;
+}
+.stop:hover .dot, .stop[aria-current="page"] .dot { background: var(--hat); }
+.stop[aria-current="page"] { font-weight: 700; }
+
+.flowSteps { display: grid; gap: 22px; }
+.flowSteps li { position: relative; display: grid; gap: 2px; align-content: start; padding-left: 30px; }
+.flowSteps .dot { position: absolute; left: 0; top: 5px; }
+.flowSteps strong { font-weight: 600; font-size: 1.0625rem; }
+.flowSteps span:last-child { color: var(--fg-muted); font-size: 0.9375rem; line-height: 1.45; max-width: 34ch; }
+
+@media (min-width: 900px) {
+  .hat, .flow { --draw-axis: x; }
+  .line { top: 7px; bottom: auto; left: 6px; right: 0; width: auto; height: 1px; transform-origin: 0 50%; }
+  .hat .line { top: 6px; }
+  .stops, .flowSteps { display: grid; grid-template-columns: repeat(var(--stops), minmax(0, 1fr)); gap: 12px; }
+  .stop { flex-direction: column; align-items: flex-start; gap: 10px; font-size: 0.9375rem; }
+  .flowSteps li { padding-left: 0; padding-top: 28px; }
+  .flowSteps .dot { top: 0; }
+}

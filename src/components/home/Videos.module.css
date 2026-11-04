@@ -1,0 +1,8 @@
+.section { padding-block: var(--section); background: #000; }
+.section h2 { text-align: center; }
+.grid { display: grid; gap: 32px; margin-top: clamp(40px, 6vw, 72px); }
+.grid figcaption { margin-top: 12px; color: var(--fg-muted); font-size: 0.9375rem; text-align: center; }
+
+@media (min-width: 768px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+}

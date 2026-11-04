@@ -1,0 +1,14 @@
+node_modules
+.next
+out
+next-env.d.ts
+*.tsbuildinfo
+.env*.local
+.playwright-mcp
+.claude-flow
+.swarm
+ruvector.db
+.DS_Store
+agentdb.rvf
+agentdb.rvf.lock
+.env
