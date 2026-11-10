@@ -7,10 +7,10 @@ import s from "./Footer.module.css";
 
 export function Footer() {
   return (
-    <footer className={s.footer}>
+    <footer className={s.footer} data-tone="light">
       <div className={`wrap ${s.grid}`}>
         <div className={s.brand}>
-          <Image src="/images/logo-light.png" alt="Novcod Software logosu" width={1000} height={258} sizes="140px" className={s.logo} />
+          <Image src="/images/logo-dark.png" alt="Novcod Software logosu" width={774} height={200} sizes="150px" className={s.logo} />
           <p>Firma ve kurumların ihtiyaçlarına yenilikçi ve özgün yazılım çözümleri sunuyoruz.</p>
         </div>
         <nav aria-label="Yazılımlarımız">
@@ -38,6 +38,9 @@ export function Footer() {
           </ul>
         </div>
       </div>
+      <p className={`wrap ${s.wordmark}`} aria-hidden="true">
+        Novcod<span>.</span>
+      </p>
       <div className={`wrap ${s.bottom}`}>
         <p>© Novcod Software. Tüm hakları saklıdır.</p>
         <ul className={s.social}>

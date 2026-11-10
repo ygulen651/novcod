@@ -1,0 +1,62 @@
+.section { padding-block: var(--section); }
+.head { display: grid; gap: 20px; }
+.title { max-width: 16ch; }
+
+.steps { display: grid; gap: 0; margin-top: clamp(40px, 5vw, 72px); counter-reset: step; }
+.step {
+  display: grid;
+  grid-template-columns: 3rem 1fr;
+  column-gap: 16px;
+  row-gap: 6px;
+  padding-block: 24px;
+  border-top: 1px solid var(--rule);
+}
+.num {
+  grid-row: span 2;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--accent);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--accent);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  box-shadow: inset 0 0 0 3px var(--bg), inset 0 0 0 40px rgb(11 109 181 / 0.06);
+}
+.rail { display: none; }
+.step h3 { font-size: 1.25rem; }
+.step p { color: var(--fg-muted); max-width: 36ch; }
+
+.cta { margin-top: 32px; color: var(--fg-muted); }
+
+@media (min-width: 900px) {
+  .steps { grid-template-columns: repeat(4, 1fr); gap: 32px; }
+  .step { grid-template-columns: 1fr; row-gap: 14px; padding-top: 0; border-top: 0; position: relative; }
+  .steps { position: relative; }
+  .num { grid-row: auto; position: relative; z-index: 1; }
+  /* Adımları birbirine bağlayan hat ve üzerinde akan ışık darbesi */
+  .rail {
+    display: block;
+    position: absolute;
+    top: calc(1.375rem - 1.5px);
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--rule) 6px, transparent 6px) 0 1px / 10px 1px repeat-x;
+    overflow: hidden;
+  }
+  .rail::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120px;
+    width: 120px;
+    height: 3px;
+    background: linear-gradient(to right, transparent, var(--accent), transparent);
+    animation: rail-run 4s linear infinite;
+  }
+}
+@keyframes rail-run { to { left: 100%; } }

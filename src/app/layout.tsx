@@ -1,18 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { JetBrains_Mono, Plus_Jakarta_Sans } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { JsonLd } from "@/components/JsonLd";
 import { PageTransition } from "@/components/motion/PageTransition";
+import { Reveal } from "@/components/motion/Reveal";
 import { ScrollEffects } from "@/components/motion/ScrollEffects";
 import { SmoothScroll } from "@/components/motion/SmoothScroll";
 import { site } from "@/content/site";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 
-const sans = Geist({
+/* Tek aile: geometrik, kalın başlıklar ve okunaklı metin için Plus Jakarta Sans. */
+const sans = Plus_Jakarta_Sans({
   subsets: ["latin", "latin-ext"],
   variable: "--font-sans",
+  display: "swap",
+});
+
+/* Etiketler, numaralar ve rakamlar için mono aile: teknoloji/veri havası */
+const mono = JetBrains_Mono({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -29,7 +38,7 @@ export const metadata: Metadata = {
   twitter: { card: "summary_large_image", site: "@novcodtr" },
 };
 
-export const viewport: Viewport = { themeColor: "#000000" };
+export const viewport: Viewport = { themeColor: "#111214" };
 
 const organization = {
   "@context": "https://schema.org",
@@ -43,13 +52,14 @@ const organization = {
   sameAs: site.social.map((item) => item.href),
 };
 
-const introScript = `if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.dataset.intro=''`;
+/** Giriş animasyonları yalnızca hareket azaltma tercihi yoksa açılır. */
+const motionScript = `if(!matchMedia('(prefers-reduced-motion: reduce)').matches)document.documentElement.dataset.motion=''`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="tr" className={sans.variable} suppressHydrationWarning>
+    <html lang="tr" className={`${sans.variable} ${mono.variable}`} suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+        <script dangerouslySetInnerHTML={{ __html: motionScript }} />
       </head>
       <body>
         <a className="skip" href="#icerik">İçeriğe geç</a>
@@ -59,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <ScrollEffects />
           <PageTransition />
+          <Reveal />
         </SmoothScroll>
         <JsonLd data={organization} />
       </body>

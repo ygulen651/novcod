@@ -1,14 +1,26 @@
-.footer { background: #000; border-top: 1px solid var(--rule); padding-block: clamp(48px, 6vw, 72px) 24px; font-size: 0.9375rem; }
+.footer { padding-block: clamp(64px, 8vw, 112px) 28px; border-top: 1px solid var(--rule); font-size: 0.9375rem; }
 
-.grid { display: grid; gap: 36px; }
-.logo { width: 140px; height: auto; margin-bottom: 18px; }
+.grid { display: grid; gap: 40px; }
+.logo { width: 150px; height: auto; margin-bottom: 20px; }
 .brand p { max-width: 34ch; color: var(--fg-muted); }
 
-.title { margin-bottom: 10px; font-size: 1rem; letter-spacing: 0; color: var(--fg-muted); font-weight: 500; }
+.title { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 1rem; font-weight: 600; letter-spacing: -0.01em; }
+.title::before { content: ""; width: 10px; height: 10px; background: var(--accent); }
 
 .footer li { min-height: 36px; display: flex; align-items: center; }
-.footer a { text-decoration: underline; text-decoration-color: transparent; transition: text-decoration-color 0.16s ease; }
-.footer a:hover { text-decoration-color: currentColor; }
+.footer a { text-decoration: underline; text-decoration-color: transparent; transition: text-decoration-color 0.16s ease, color 0.16s ease; }
+.footer a:hover { color: var(--accent); text-decoration-color: currentColor; }
+
+.wordmark {
+  margin-top: clamp(56px, 8vw, 120px);
+  font-size: clamp(5rem, 2rem + 17vw, 17.5rem);
+  font-weight: 700;
+  letter-spacing: -0.065em;
+  line-height: 0.8;
+  white-space: nowrap;
+  overflow: clip;
+}
+.wordmark span { color: var(--accent); }
 
 .bottom {
   display: flex;
@@ -16,8 +28,8 @@
   gap: 8px 24px;
   align-items: center;
   justify-content: space-between;
-  margin-top: 44px;
-  padding-top: 18px;
+  margin-top: 40px;
+  padding-top: 20px;
   border-top: 1px solid var(--rule);
   color: var(--fg-muted);
   font-size: var(--fs-small);
@@ -28,6 +40,6 @@
 @media (min-width: 768px) {
   .grid { grid-template-columns: 1fr 1fr; }
 }
-@media (min-width: 1024px) {
+@media (min-width: 1100px) {
   .grid { grid-template-columns: 4fr 3fr 2fr 3fr; gap: 40px; }
 }

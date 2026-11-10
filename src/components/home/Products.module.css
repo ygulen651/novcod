@@ -1,0 +1,94 @@
+.section { padding-block: var(--section); }
+
+.grid { display: grid; gap: 48px; }
+.intro { display: grid; gap: 28px; align-content: start; }
+.lede { max-width: 30ch; color: var(--fg-muted); font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem); line-height: 1.4; letter-spacing: -0.015em; }
+
+.stack { display: grid; gap: 20px; }
+
+.card {
+  --card-bg: #fff;
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  gap: 14px;
+  padding: clamp(24px, 3.4vw, 44px);
+  border-radius: var(--radius-m);
+  background: var(--card-bg);
+  color: var(--ink);
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.cardHead { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.word { font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.5rem); font-weight: 700; letter-spacing: -0.05em; line-height: 1; }
+.dot { color: var(--blue); }
+/* Yuvarlak ok düğmesi */
+.arrow {
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid #d5d6d9;
+  border-radius: 50%;
+  transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+}
+.arrow svg { transition: transform 0.25s var(--ease-out); }
+.card:hover .arrow { background: var(--blue); border-color: var(--blue); color: #fff; }
+.card:hover .arrow svg { transform: translate(2px, -2px); }
+.sub { color: #5f636b; font-size: 0.8125rem; letter-spacing: 0.02em; }
+.subIdx { color: var(--blue); margin-right: 6px; }
+
+/* Görsel, alanına oranı bozulmadan sığar: hiçbir ekran boyunda kırpılmaz. */
+.shot {
+  position: relative;
+  min-height: 0;
+  aspect-ratio: 16 / 10;
+  margin-top: 10px;
+  border-radius: var(--radius-s);
+  background: var(--paper-2);
+  overflow: hidden;
+}
+.shot img {
+  position: absolute;
+  inset: clamp(12px, 2.2vw, 24px);
+  width: calc(100% - 2 * clamp(12px, 2.2vw, 24px));
+  height: calc(100% - 2 * clamp(12px, 2.2vw, 24px));
+  object-fit: contain;
+  transition: transform 0.6s var(--ease-out);
+}
+.card:hover .shot img { transform: scale(1.025); }
+.benefit { max-width: 46ch; color: #3d4047; font-size: 1rem; line-height: 1.5; }
+
+.card:focus-visible { outline-offset: 4px; }
+
+/* Masaüstünde kartlar kaydırmayla üst üste biner; öndeki kart açılır, alttakinin başlığı görünür kalır. */
+@media (min-width: 1100px) {
+  .grid { grid-template-columns: 5fr 7fr; gap: 72px; align-items: start; }
+  .intro { position: sticky; top: calc(var(--header-h) + 48px); }
+  .stack { gap: 0; padding-bottom: 8vh; }
+  .slot {
+    position: sticky;
+    top: calc(var(--header-h) + 24px + var(--i) * var(--peek));
+    padding-bottom: 32vh;
+  }
+  .slot:last-child { padding-bottom: 0; }
+  .slot:nth-child(1) .card { --card-bg: #e6e6e8; }
+  .slot:nth-child(2) .card { --card-bg: #f3f3f4; }
+  /* Kart, en alttaki kart dahil ekrana sığacak yükseklikte; görsel alanı kalan yeri doldurur. */
+  .stack { --peek: 92px; }
+  .card { height: min(600px, calc(100svh - var(--header-h) - 48px - 2 * var(--peek))); }
+  .shot { aspect-ratio: auto; }
+}
+
+/* Alçak ekranlarda başlık ve boşluklar küçülür, görsele daha çok yer kalır. */
+@media (min-width: 1100px) and (max-height: 860px) {
+  .stack { --peek: 72px; }
+  .card { gap: 8px; padding: 22px 28px; }
+  .word { font-size: clamp(2rem, 6svh, 2.75rem); }
+  .arrow { width: 48px; height: 48px; }
+  .benefit { font-size: 0.9375rem; line-height: 1.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shot img, .arrow { transition: none; }
+}

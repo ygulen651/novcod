@@ -7,7 +7,7 @@ import { useEffect, useRef, useState } from "react";
 import { products } from "@/content/products";
 import { site } from "@/content/site";
 import { useScrollApi } from "@/components/motion/SmoothScroll";
-import { Chevron, CloseIcon, MenuIcon } from "@/components/Icons";
+import { Chevron, MailIcon, PhoneIcon } from "@/components/Icons";
 import { AnchorLink } from "./AnchorLink";
 import s from "./Header.module.css";
 
@@ -64,10 +64,20 @@ export function Header() {
   };
 
   return (
-    <header className={s.header} data-compact={compact || undefined}>
+    <header className={s.header} data-tone="light" data-compact={compact || undefined}>
+      <div className={s.util}>
+        <div className={`wrap ${s.utilInner}`}>
+          <a href={site.phoneHref} className={s.utilLink}>
+            <PhoneIcon /> {site.phone}
+          </a>
+          <a href={`mailto:${site.email}`} className={`${s.utilLink} ${s.utilMail}`}>
+            <MailIcon /> {site.email}
+          </a>
+        </div>
+      </div>
       <div className={`wrap ${s.bar}`}>
         <Link href="/" className={s.logo} aria-label="Novcod ana sayfa" onClick={closeAll}>
-          <Image src="/images/logo-light.png" alt="" width={1000} height={258} priority sizes="130px" />
+          <Image src="/images/logo-dark.png" alt="" width={774} height={200} loading="eager" sizes="150px" />
         </Link>
 
         <nav className={s.nav} aria-label="Ana menü">
@@ -99,7 +109,6 @@ export function Header() {
                       tabIndex={productsOpen ? undefined : -1}
                       onClick={closeAll}
                     >
-                      <span className={s.panelDot} aria-hidden="true" />
                       <span>
                         <strong>{product.name}</strong>
                         <small>{product.menuNote}</small>
@@ -115,23 +124,23 @@ export function Header() {
           <AnchorLink id="iletisim" className={s.navLink}>İletişim</AnchorLink>
         </nav>
 
-        <AnchorLink id="iletisim" className={s.cta}>Projenizi konuşalım</AnchorLink>
+        <AnchorLink id="iletisim" className={`btn btnPrimary ${s.cta}`}>Projenizi konuşalım</AnchorLink>
 
         <button
           type="button"
           className={s.menuButton}
-          aria-label="Menüyü aç"
           aria-haspopup="dialog"
           aria-expanded={menuOpen}
           onClick={() => setMenuOpen(true)}
         >
-          <MenuIcon />
+          <span aria-hidden="true" className={s.menuMark}>[+]</span> Menü
         </button>
       </div>
 
       <dialog
         ref={dialogRef}
         className={s.sheet}
+        data-tone="dark"
         aria-label="Menü"
         data-lenis-prevent
         onClose={() => {
@@ -139,14 +148,12 @@ export function Header() {
           unlock();
         }}
       >
-        <span className={s.layerA} aria-hidden="true" />
-        <span className={s.layerB} aria-hidden="true" />
         <div className={s.sheetTop}>
           <Link href="/" className={s.logo} aria-label="Novcod ana sayfa" onClick={closeAll}>
-            <Image src="/images/logo-light.png" alt="" width={1000} height={258} sizes="130px" />
+            <Image src="/images/logo-light.png" alt="" width={1000} height={258} sizes="150px" />
           </Link>
           <button type="button" className={s.menuButton} aria-label="Menüyü kapat" onClick={() => setMenuOpen(false)}>
-            <CloseIcon />
+            <span aria-hidden="true" className={s.menuMark}>[−]</span> Kapat
           </button>
         </div>
         <nav aria-label="Mobil menü" className={s.sheetNav}>
@@ -155,8 +162,8 @@ export function Header() {
             {products.map((product) => (
               <li key={product.id} data-hat={product.id}>
                 <Link href={product.href} onClick={closeAll}>
-                  <span className={s.panelDot} aria-hidden="true" />
                   {product.name}
+                  <small>{product.menuNote}</small>
                 </Link>
               </li>
             ))}

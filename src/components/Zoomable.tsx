@@ -47,7 +47,8 @@ export function Zoomable({ shot, sizes, priority, className, label }: Props) {
             width={shot.width}
             height={shot.height}
             sizes={sizes}
-            priority={priority}
+            loading={priority ? "eager" : undefined}
+            fetchPriority={priority ? "high" : undefined}
             className={shot.kind === "screen" ? "shotScreen" : undefined}
           />
           <span className={s.hint} aria-hidden="true"><ZoomIcon /></span>
